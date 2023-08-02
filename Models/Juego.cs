@@ -5,16 +5,13 @@ public class Juego{
     private static List<Pregunta> _preguntas{get;set;}
     private static List<Respuesta> _respuestas{get;set;}
 
-    // public Juego(string username, int puntajeActual, int cantidadPreguntasCorrectas, List<Pregunta> preguntas, List<Respuesta> respuesta){
-    //     _username = username;
-    //     _puntajeActual = puntajeActual;
-    //     _cantidadPreguntasCorrectas = cantidadPreguntasCorrectas;
-    //     List<Pregunta> _preguntas =  preguntas;
-    //     List<Respuesta> _respuesta = respuesta;
-    // }
 
-    public static void InicializarJuego(){
-        
+    public static void InicializarJuego(string username){
+        _username = username;
+        _puntajeActual = 0;
+        _cantidadPreguntasCorrectas = 0;
+        List<Pregunta> _preguntas= new List<Pregunta>();
+        List<Respuesta> _respuesta = new List<Respuesta>();
     }
 
     public void ObtenerCategorias(){
@@ -26,7 +23,12 @@ public class Juego{
     }
 
     public void CargarPartida(string username, int dificultad, int categoria){
-
+        if(dificultad == 1){
+            if(categoria == 1){
+                _preguntas = BD.ObtenerPreguntas( 1, 1);
+                _respuestas = BD.ObtenerRespuestas(List<Pregunta> _preguntas);
+            }
+        }
     }
 }
 

@@ -22,14 +22,16 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
         return listaDificultades;
     }
 
-    public static List<Pregunta> ObtenerPreguntas(int idDificultad, int idCategoria){
-        List<Pregunta> listaPreguntas;
+    public static List<Pregunta> ObtenerPreguntas(int idDificultad, int idCategoria){ //review del profe: son 4 queries distintas segun 4 casos distintos: si dificultad = -1 y categoria no, si dificultad y categoria son -1, si categoria -1 y dificultad no y si ninguna es -1. UTILIZAR WHERE. 
+        List<Pregunta> listaPreguntas; 
         using(SqlConnection db = new SqlConnection(_connectionString)){
             if(idDificultad == -1){
                 string sql = "SELECT * FROM DIFICULTAD"; //revisar si esta bien asi la query
+                listaPreguntas = db.Query<Dificultad>(sql).ToList();
             }
             if(idCategoria == -1){
                 string sql = "SELECT * FROM CATEGORIAS";
+                listaPreguntas = db.Query<Categoria>(sql).ToList();
             }
         }
 
@@ -38,6 +40,9 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
     
     public static List<Respuesta> ObtenerRespuestas(List<Pregunta> preguntas){
         List<Respuesta> listaRespuestas;
+        using(SqlConnection db = new SqlConnection(_connectionString)){
+            string sql = "";
+        }
         
     }
 }
