@@ -5,4 +5,6 @@ public class Pregunta{
     public string Enunciado {get;set;}
     public string Foto {get;set;}
 
+    //no va el constructor porque sino el dapper no puede iniciar porque no se podrian crear las tablas en la base de datos. 
+
 }
