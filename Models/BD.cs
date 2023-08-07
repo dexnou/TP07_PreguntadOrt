@@ -2,7 +2,7 @@ using System.Data.SqlClient;
 using Dapper; 
 
 public class BD{
-private static string _connectionString = @"Server=localhost;DataBase=PreguntadORT;Trusted_Connection=True;";
+private static string _connectionString = @"Server=localhost;DataBase=PreguntadOrt;Trusted_Connection=True;";
  
     public static List<Categoria> ObtenerCategorias(){
         List<Categoria> listaCategorias;
@@ -16,7 +16,7 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
     public static List<Dificultad> ObtenerDificultades(){
         List<Dificultad> listaDificultades;
         using(SqlConnection db = new SqlConnection(_connectionString)){
-        string sql = "SELECT * FROM DIFICULTAD";
+        string sql = "SELECT * FROM Dificultades"; //ver si los nombres de las tablas de la base de datos se llaman igual para verificar. 
         listaDificultades = db.Query<Dificultad>(sql).ToList();
         }
         return listaDificultades;

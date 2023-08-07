@@ -11,14 +11,15 @@ public class HomeController : Controller
 
     public IActionResult ConfigurarJuego(){
         Juego.InicializarJuego();
+        
         ViewBag.Categoria = Juego.ObtenerCategorias();
         ViewBag.Dificultad = Juego.ObtenerDificultades();
         return View();
     }
 
     public IActionResult Comenzar(string username, int dificultad, int categoria){
+        ViewBag.Username = username;
         Juego.CargarPartida(username, dificultad, categoria);
-
         if(username != "" || dificultad >0 && dificultad <=3 || categoria >0 && categoria<=3){
             return RedirectToAction("Jugar");
         }else{

@@ -1,4 +1,4 @@
-public class Juego{
+public class Juego{//tiene que ir en private???? En la consigna dice private. 
     private static string _username{get;set;}
     private static int _puntajeActual{get;set;}
     private static int  _cantidadPreguntasCorrectas{get;set;}
