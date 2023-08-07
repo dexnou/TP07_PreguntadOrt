@@ -40,6 +40,7 @@ public class HomeController : Controller
 
     [HttpPost]public IActionResult VerificarRespuesta(int idPregunta, int idRespuesta){
         ViewBag.Respuesta = Juego.VerificarRespuesta(idPregunta,idRespuesta);
+        ViewBag.PuntajeFinal = Juego._puntajeActual; //ver si esto funciona...
         return View("Respuesta");
     }
 }

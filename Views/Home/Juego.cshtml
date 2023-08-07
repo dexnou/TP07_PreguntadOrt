@@ -6,7 +6,13 @@
     <title>Juego</title>
 </head>
 <body>
-    <p>@ViewBag.Username</p>
+    <p>@ViewBag.Username</p> <!--Falta poner puntaje actual, nro de pregunta actual y enunciado-->
 
+    <form action='@Url.Action("Juego")' method="post">
+        @foreach(string respuesta in  ViewBag.RespuestasAPregunta){
+            <button>@respuesta</button>
+        }
+        <button><a href='@Url.Action("VerificarRespuesta")'></a></button>
+    </form>
 </body>
 </html>
