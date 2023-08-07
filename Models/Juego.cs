@@ -11,7 +11,6 @@ public class Juego{
         set{_fin = value;}
     }
     public static void InicializarJuego(){
-        /*Aca le pueden mandar el nombre que ingreso el usuario por parametros y configurarlo ahora dice que tiene que estar vacio el nombre en la consigna.*/
         _username = "";
         _puntajeActual = 0;
         _cantidadPreguntasCorrectas = 0;
@@ -31,15 +30,14 @@ public class Juego{
         _preguntas = BD.ObtenerPreguntas(dificultad, categoria);
         _respuestas = BD.ObtenerRespuestas(_preguntas);
     }
-
-    public Pregunta ObtenerProximaPregunta(){ //agregar una lista que guarde todas las preguntas ya hechas para evitar que se repitan y para que cuando todas hayan sido respondidas se pueda terminar el juego. fz lo hace.
+    public static Pregunta ObtenerProximaPregunta(){ //agregar una lista que guarde todas las preguntas ya hechas para evitar que se repitan y para que cuando todas hayan sido respondidas se pueda terminar el juego. fz lo hace.
         Random random = new Random();
         int indiceAleatorio = random.Next(0, _preguntas.Count);
         Pregunta preguntaRandom = _preguntas[indiceAleatorio];
         return preguntaRandom;
     }
 
-    public List<Respuesta> ObtenerProximasRespuestas(int idPregunta){ //cada pregunta tiene 3 opciones de respuesta. solo 1 opcion es correcta. tiene que mostrar esas 3 opciones. 
+    public static List<Respuesta> ObtenerProximasRespuestas(int idPregunta){ //cada pregunta tiene 3 opciones de respuesta. solo 1 opcion es correcta. tiene que mostrar esas 3 opciones. 
         List<Respuesta> ListaPosiblesRespuestas = new List<Respuesta>();
 
         for(int i=0; i<_respuestas.Count; i++){ //se podria tambien hacer un foreach pero es lo mismo. aunque el foreach es mas limpio. 
@@ -50,11 +48,11 @@ public class Juego{
         return ListaPosiblesRespuestas;
     }
 
-    public bool VerificarRespuesta(int idPregunta, int idRespuesta){ //terminar
+    public static bool VerificarRespuesta(int idPregunta, int idRespuesta){ //terminar
         bool validacion = false; 
 
         foreach(Respuesta respuesta in _respuestas){
-            if( respuesta.correcta == true){
+            if( respuesta.Correcta == true){
                 validacion = true; 
                 _puntajeActual++;
                 _cantidadPreguntasCorrectas++;

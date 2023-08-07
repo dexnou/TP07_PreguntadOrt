@@ -19,17 +19,17 @@ public class HomeController : Controller
     public IActionResult Comenzar(string username, int dificultad, int categoria){
         Juego.CargarPartida(username, dificultad, categoria);
 
-        if(username =! "" || dificultad >0 && dificultad <=3 || categoria >0 && categoria<=3){
+        if(username != "" || dificultad >0 && dificultad <=3 || categoria >0 && categoria<=3){
             return RedirectToAction("Jugar");
         }else{
-            return RedirectToActrion("ConfigurarJuego");
+            return RedirectToAction("ConfigurarJuego");
         }
     }
 
-    public IActionResult Jugar(){
+    public IActionResult Jugar(int idPregunta){
         ViewBag.Pregunta = Juego.ObtenerProximaPregunta(); 
         if(ViewBag.Pregunta != null){ //si ViewBag.Pregunta obtiene una pregunta, continua el juego
-            ViewBag.RespuestasAPregunta = Juego.ObtenerProximasRespuestas();
+            ViewBag.RespuestasAPregunta = Juego.ObtenerProximasRespuestas(idPregunta);
             return View("Juego");
         }else{ //sino, si se queda sin preguntas, te redirige a fin del juego. 
             return View("Fin");
