@@ -1,4 +1,4 @@
-public class Juego{//tiene que ir en private???? En la consigna dice private. 
+public class Juego{
     private static string _username{get;set;}
     private static int _puntajeActual{get;set;}
     private static int  _cantidadPreguntasCorrectas{get;set;}
@@ -10,8 +10,8 @@ public class Juego{//tiene que ir en private???? En la consigna dice private.
         get{return _fin;}
         set{_fin = value;}
     }
-    public static void InicializarJuego(){
-        _username = "";
+    public static void InicializarJuego(string username){
+        _username = username; //.
         _puntajeActual = 0;
         _cantidadPreguntasCorrectas = 0;
         List<Pregunta> _preguntas= new List<Pregunta>();
@@ -29,11 +29,19 @@ public class Juego{//tiene que ir en private???? En la consigna dice private.
     public static void CargarPartida(string username, int dificultad, int categoria){
         _preguntas = BD.ObtenerPreguntas(dificultad, categoria);
         _respuestas = BD.ObtenerRespuestas(_preguntas);
+        InicializarJuego(username);
     }
     public static Pregunta ObtenerProximaPregunta(){ //agregar una lista que guarde todas las preguntas ya hechas para evitar que se repitan y para que cuando todas hayan sido respondidas se pueda terminar el juego. fz lo hace.
+        List<Pregunta> ListaPreguntasHechas = new List<Pregunta>(); //guarda las preguntas ya hechas para evitar que se repitan jaja. 
         Random random = new Random();
-        int indiceAleatorio = random.Next(0, _preguntas.Count);
-        Pregunta preguntaRandom = _preguntas[indiceAleatorio];
+        do{
+            int indiceAleatorio = random.Next(0, _preguntas.Count);
+            Pregunta preguntaRandom = _preguntas[indiceAleatorio];
+
+        }while(ListaPreguntasHechas.Contains(preguntaRandom));
+        
+        ListaPreguntasHechas.Add(preguntaRandom);
+
         return preguntaRandom;
     }
 
@@ -48,18 +56,21 @@ public class Juego{//tiene que ir en private???? En la consigna dice private.
         return ListaPosiblesRespuestas;
     }
 
-    public static bool VerificarRespuesta(int idPregunta, int idRespuesta){ //terminar
+    public static bool VerificarRespuesta(int idPregunta, int idRespuesta){ //ver si funciona. 
         bool validacion = false; 
 
         foreach(Respuesta respuesta in _respuestas){
-            if( respuesta.Correcta == true){
-                validacion = true; 
-                _puntajeActual++;
-                _cantidadPreguntasCorrectas++;
+            if(respuesta.idPregunta = idPregunta){
+                if(respuesta.Correcta == true){
+                    validacion = true; 
+                    _puntajeActual++;
+                    _cantidadPreguntasCorrectas++;
+                }
             }
         }
         return validacion; 
     }
 }
+
 
 

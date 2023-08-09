@@ -27,7 +27,7 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
         using(SqlConnection db = new SqlConnection(_connectionString)){
             
             if(idDificultad == -1 && idCategoria == -1){
-                string sql = ""; 
+                string sql =  "SELECT * FROM Preguntas WHERE IdDificultad = @pIdDificultad AND IdCategoria = @pIdCategoria"; 
                 listaPreguntas = db.Query<Pregunta>(sql).ToList();
             }
             else if(idDificultad == -1 && idCategoria != -1){
@@ -42,10 +42,10 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
                 string sql = "SELECT * FROM PREGUNTAS"; 
                 listaPreguntas = db.Query<Pregunta>(sql).ToList();
             }
-            else{
-                string sql = "SELECT * FROM Preguntas WHERE IdDificultad = @pIdDificultad AND IdCategoria = @pIdCategoria"; 
-                listaPreguntas = db.Query<Pregunta>(sql).ToList();
-            }
+            // else{
+            //     string sql = "SELECT * FROM Preguntas WHERE IdDificultad = @pIdDificultad AND IdCategoria = @pIdCategoria"; 
+            //     listaPreguntas = db.Query<Pregunta>(sql).ToList();
+            // }
         }
         return listaPreguntas;
     }
@@ -62,4 +62,3 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
         return listaRespuestas;
     }
 }
-
