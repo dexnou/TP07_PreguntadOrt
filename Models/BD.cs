@@ -20,7 +20,7 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
         listaDificultades = db.Query<Dificultad>(sql).ToList();
         }
         return listaDificultades;
-    }
+    }//hoa
 
     public static List<Pregunta> ObtenerPreguntas(int idDificultad, int idCategoria){ //review del profe: son 4 queries distintas segun 4 casos distintos: si dificultad = -1 y categoria no, si dificultad y categoria son -1, si categoria -1 y dificultad no y si ninguna es -1. UTILIZAR WHERE. 
         List<Pregunta> listaPreguntas; 
