@@ -18,7 +18,7 @@ public class HomeController : Controller
     }
 
     public IActionResult Comenzar(string username, int dificultad, int categoria){
-        ViewBag.Username = username;
+        ViewBag.Username = username; //. 
         Juego.CargarPartida(username, dificultad, categoria);
         if(username != "" || dificultad >0 && dificultad <=3 || categoria >0 && categoria<=3){
             return RedirectToAction("Jugar");
@@ -27,16 +27,16 @@ public class HomeController : Controller
         }
     }
 
-    public IActionResult Jugar(int idPregunta){
+    public IActionResult Jugar(){
         ViewBag.Pregunta = Juego.ObtenerProximaPregunta(); 
         if(ViewBag.Pregunta != null){ //si ViewBag.Pregunta obtiene una pregunta, continua el juego
-            ViewBag.RespuestasAPregunta = Juego.ObtenerProximasRespuestas(idPregunta);
+            ViewBag.RespuestasAPregunta = Juego.ObtenerProximasRespuestas(ViewBag.Pregunta.IdPregunta);
+            Console.WriteLine(ViewBag.RespuestasAPregunta[0].IdRespuesta);
             return View("Juego");
         }else{ //sino, si se queda sin preguntas, te redirige a fin del juego. 
             return View("Fin");
         }
     }
-
 
     [HttpPost]public IActionResult VerificarRespuesta(int idPregunta, int idRespuesta){
         ViewBag.Respuesta = Juego.VerificarRespuesta(idPregunta,idRespuesta);

@@ -7,7 +7,7 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
     public static List<Categoria> ObtenerCategorias(){
         List<Categoria> listaCategorias;
         using(SqlConnection db = new SqlConnection(_connectionString)){
-        string sql = "SELECT * FROM CATEGORIAS";
+        string sql = "SELECT * FROM Categorias";
         listaCategorias = db.Query<Categoria>(sql).ToList();
         }
         return listaCategorias;
@@ -27,25 +27,26 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
         using(SqlConnection db = new SqlConnection(_connectionString)){
             
             if(idDificultad == -1 && idCategoria == -1){
-                string sql =  "SELECT * FROM Preguntas WHERE IdDificultad = @pIdDificultad AND IdCategoria = @pIdCategoria"; 
+                string sql =  "SELECT * FROM Preguntas1 WHERE IdDificultad = @IdDificultad AND IdCategoria = @pIdCategoria"; 
+                // string sql = "SELECT * FROM Preguntas"; 
                 listaPreguntas = db.Query<Pregunta>(sql).ToList();
             }
             else if(idDificultad == -1 && idCategoria != -1){
-                string sql = "SELECT * FROM PREGUNTAS WHERE IdCategoria = @pIdCategoria"; 
+                string sql = "SELECT * FROM Preguntas1 WHERE IdCategoria = @pIdCategoria"; 
+                // string sql = "SELECT * FROM Preguntas"; 
                 listaPreguntas = db.Query<Pregunta>(sql).ToList();
             }
             else if(idCategoria == -1 && idDificultad != -1){
-                string sql = "SELECT * FROM Preguntas WHERE IdDificultad = @pIdDificultad"; 
+                string sql = "SELECT * FROM Preguntas1 WHERE IdDificultad = @pIdDificultad"; 
+                // string sql = "SELECT * FROM Preguntas"; 
                 listaPreguntas = db.Query<Pregunta>(sql).ToList();
             }
             else if(idCategoria != -1 && idDificultad != -1){
-                string sql = "SELECT * FROM PREGUNTAS"; 
+                string sql = "SELECT * FROM Preguntas"; 
                 listaPreguntas = db.Query<Pregunta>(sql).ToList();
+            }else{
+                listaPreguntas = null;
             }
-            // else{
-            //     string sql = "SELECT * FROM Preguntas WHERE IdDificultad = @pIdDificultad AND IdCategoria = @pIdCategoria"; 
-            //     listaPreguntas = db.Query<Pregunta>(sql).ToList();
-            // }
         }
         return listaPreguntas;
     }
@@ -54,11 +55,11 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
         List<Respuesta> listaRespuestas = new List<Respuesta>();
             
         foreach(Pregunta preg in preguntas){
-            string SQL = "SELECT * FROM Respuestas WHERE IdPregunta = @pIdPregunta";
+            // string SQL = "SELECT * FROM Respuestas1 WHERE IdPregunta = @pIdPregunta";
+            string SQL = "SELECT * FROM Respuestas";
             using(SqlConnection db = new SqlConnection(_connectionString)){
                 listaRespuestas.AddRange(db.Query<Respuesta>(SQL, new{pIdPregunta = preg.IdPregunta}));
             }
         }
         return listaRespuestas;
     }
-}

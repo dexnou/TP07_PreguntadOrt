@@ -1,6 +1,6 @@
-public class Juego{
+public static class Juego{
     private static string _username{get;set;}
-    private static int _puntajeActual{get;set;}
+    public static int _puntajeActual{get;set;} //tendria que ser private pero para que funcione esta asi. 
     private static int  _cantidadPreguntasCorrectas{get;set;}
     private static List<Pregunta> _preguntas{get;set;}
     private static List<Respuesta> _respuestas{get;set;}
@@ -10,12 +10,12 @@ public class Juego{
         get{return _fin;}
         set{_fin = value;}
     }
-    public static void InicializarJuego(string username){
-        _username = username; //.
+    public static void InicializarJuego(){
+        _username = ""; //.
         _puntajeActual = 0;
         _cantidadPreguntasCorrectas = 0;
         List<Pregunta> _preguntas= new List<Pregunta>();
-        List<Respuesta> _respuesta = new List<Respuesta>();
+        List<Respuesta> _respuestas = new List<Respuesta>();
     }
 
     public static List<Categoria> ObtenerCategorias(){
@@ -29,14 +29,15 @@ public class Juego{
     public static void CargarPartida(string username, int dificultad, int categoria){
         _preguntas = BD.ObtenerPreguntas(dificultad, categoria);
         _respuestas = BD.ObtenerRespuestas(_preguntas);
-        InicializarJuego(username);
+        InicializarJuego();
     }
     public static Pregunta ObtenerProximaPregunta(){ //agregar una lista que guarde todas las preguntas ya hechas para evitar que se repitan y para que cuando todas hayan sido respondidas se pueda terminar el juego. fz lo hace.
         List<Pregunta> ListaPreguntasHechas = new List<Pregunta>(); //guarda las preguntas ya hechas para evitar que se repitan jaja. 
         Random random = new Random();
+        Pregunta preguntaRandom;
         do{
             int indiceAleatorio = random.Next(0, _preguntas.Count);
-            Pregunta preguntaRandom = _preguntas[indiceAleatorio];
+            preguntaRandom = _preguntas[indiceAleatorio];
 
         }while(ListaPreguntasHechas.Contains(preguntaRandom));
         
@@ -47,12 +48,29 @@ public class Juego{
 
     public static List<Respuesta> ObtenerProximasRespuestas(int idPregunta){ //cada pregunta tiene 3 opciones de respuesta. solo 1 opcion es correcta. tiene que mostrar esas 3 opciones. 
         List<Respuesta> ListaPosiblesRespuestas = new List<Respuesta>();
-
+        Console.WriteLine(_respuestas[0].IdRespuesta);
         for(int i=0; i<_respuestas.Count; i++){ //se podria tambien hacer un foreach pero es lo mismo. aunque el foreach es mas limpio. 
+            System.Console.WriteLine(idPregunta);
             if(_respuestas[i].IdPregunta == idPregunta){
                 ListaPosiblesRespuestas.Add(_respuestas[i]);
             }
         }
+        // int j = 0;
+        // foreach(Respuesta respuesta in _respuestas){
+        //     if(respuesta.IdPregunta == idPregunta){
+        //         ListaPosiblesRespuestas.Add(_respuestas[j]);
+        //     }
+        //     j++;
+        // }
+        
+            // if(ListaPosiblesRespuestas != null){
+            //     return ListaPosiblesRespuestas;
+            // }else{
+            //     List<Respuesta> ListaError = new List<Respuesta>();
+                
+            //     return ListaError;
+            // }
+        
         return ListaPosiblesRespuestas;
     }
 
@@ -60,7 +78,7 @@ public class Juego{
         bool validacion = false; 
 
         foreach(Respuesta respuesta in _respuestas){
-            if(respuesta.idPregunta = idPregunta){
+            if(respuesta.IdPregunta == idPregunta){
                 if(respuesta.Correcta == true){
                     validacion = true; 
                     _puntajeActual++;
@@ -71,6 +89,3 @@ public class Juego{
         return validacion; 
     }
 }
-
-
-

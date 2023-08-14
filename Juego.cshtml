@@ -1,0 +1,13 @@
+
+
+<p>@ViewBag.Username</p> <!--Falta poner puntaje actual, nro de pregunta actual y enunciado-->
+
+<p>@ViewBag.Pregunta.Enunciado</p>
+
+<form action='@Url.Action("VerificarRespuesta")' method="post">
+@foreach(var respuesta in ViewBag.RespuestasAPregunta){
+        <input type="radio" id="id_respuesta" name="respuesta" value="@respuesta.Contenido" required ></input>
+        <label for="respuesta">@respuesta.Contenido</label><br>
+    }
+    <button type="submit">Verificar Respuesta</button>
+</form>
