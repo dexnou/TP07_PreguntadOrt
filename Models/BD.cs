@@ -28,26 +28,26 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
             
             if(idDificultad == -1 && idCategoria == -1){
                 string sql = "SELECT * FROM Preguntas"; 
-                // string sql = "SELECT * FROM Preguntas"; 
+                
                 listaPreguntas = db.Query<Pregunta>(sql).ToList();
             }
             else if(idDificultad == -1 && idCategoria != -1){
-                string sql = "SELECT * FROM Preguntas WHERE IdCategoria = idCategoria"; 
-                // string sql = "SELECT * FROM Preguntas"; 
-                listaPreguntas = db.Query<Pregunta>(sql).ToList();
+                string sql = "SELECT * FROM Preguntas WHERE IdCategoria = @pIdCategoria"; 
+                
+                listaPreguntas = db.Query<Pregunta>(sql, new{pIdCategoria = idCategoria}).ToList();
             }
             else if(idCategoria == -1 && idDificultad != -1){
-                string sql = "SELECT * FROM Preguntas WHERE IdDificultad = idDificultad"; 
-                // string sql = "SELECT * FROM Preguntas"; 
-                listaPreguntas = db.Query<Pregunta>(sql).ToList();
+                string sql = "SELECT * FROM Preguntas WHERE IdDificultad = @pIdDificultad"; 
+                
+                listaPreguntas = db.Query<Pregunta>(sql, new{pIdDificultad = idDificultad}).ToList();
             }
             else if(idCategoria != -1 && idDificultad != -1){
-                string sql =  "SELECT * FROM Preguntas WHERE IdDificultad = @pidDificultad AND IdCategoria = @pidCategoria"; 
-                listaPreguntas = db.Query<Pregunta>(sql, new{pIdDificultad = idDificultad, pIdCategoria = idCategoria}).ToList();            
+                string sql =  "SELECT * FROM Preguntas WHERE IdDificultad = @pidDificultad AND IdCategoria = @pIdCategoria"; 
+                listaPreguntas = db.Query<Pregunta>(sql, new{pIdDificultad = idDificultad, pIdCategoria = idCategoria}).ToList();     
                 
-                foreach(var pal in listaPreguntas){
-                    Console.WriteLine(pal.Enunciado);
-                }
+                // foreach(var pal in listaPreguntas){
+                //     Console.WriteLine(pal.Enunciado);
+                // }
             }else{
                 listaPreguntas = null;
             }
