@@ -23,27 +23,31 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
     }
 
     public static List<Pregunta> ObtenerPreguntas(int idDificultad, int idCategoria){ //review del profe: son 4 queries distintas segun 4 casos distintos: si dificultad = -1 y categoria no, si dificultad y categoria son -1, si categoria -1 y dificultad no y si ninguna es -1. UTILIZAR WHERE. 
-        List<Pregunta> listaPreguntas; 
+        List<Pregunta> listaPreguntas = new List <Pregunta>(); 
         using(SqlConnection db = new SqlConnection(_connectionString)){
             
             if(idDificultad == -1 && idCategoria == -1){
-                string sql =  "SELECT * FROM Preguntas1 WHERE IdDificultad = @IdDificultad AND IdCategoria = @pIdCategoria"; 
+                string sql = "SELECT * FROM Preguntas"; 
                 // string sql = "SELECT * FROM Preguntas"; 
                 listaPreguntas = db.Query<Pregunta>(sql).ToList();
             }
             else if(idDificultad == -1 && idCategoria != -1){
-                string sql = "SELECT * FROM Preguntas1 WHERE IdCategoria = @pIdCategoria"; 
+                string sql = "SELECT * FROM Preguntas WHERE IdCategoria = idCategoria"; 
                 // string sql = "SELECT * FROM Preguntas"; 
                 listaPreguntas = db.Query<Pregunta>(sql).ToList();
             }
             else if(idCategoria == -1 && idDificultad != -1){
-                string sql = "SELECT * FROM Preguntas1 WHERE IdDificultad = @pIdDificultad"; 
+                string sql = "SELECT * FROM Preguntas WHERE IdDificultad = idDificultad"; 
                 // string sql = "SELECT * FROM Preguntas"; 
                 listaPreguntas = db.Query<Pregunta>(sql).ToList();
             }
             else if(idCategoria != -1 && idDificultad != -1){
-                string sql = "SELECT * FROM Preguntas"; 
-                listaPreguntas = db.Query<Pregunta>(sql).ToList();
+                string sql =  "SELECT * FROM Preguntas WHERE IdDificultad = @pidDificultad AND IdCategoria = @pidCategoria"; 
+                listaPreguntas = db.Query<Pregunta>(sql, new{pIdDificultad = idDificultad, pIdCategoria = idCategoria}).ToList();            
+                
+                foreach(var pal in listaPreguntas){
+                    Console.WriteLine(pal.Enunciado);
+                }
             }else{
                 listaPreguntas = null;
             }

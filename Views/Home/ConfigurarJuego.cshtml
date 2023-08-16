@@ -1,6 +1,6 @@
 @{
         int i = 0;
-    }
+    }@*Se puede elegir 2 categorias. Arreglar despues. *@
 
     <form action='@Url.Action("Comenzar", "Home")' method="get" enctype="multipart/form-data">
         Nombre Usuario: <input type="text" name="username" value="" placeholder="Ingrese su nombre" required/><br/>
@@ -11,18 +11,18 @@
 
             @foreach(var palabra in ViewBag.Dificultad){
                 i++;
-                <input type="radio" name="Dificultad" value=i required/>@palabra.Nombre<br/> 
+                <input type="radio" name="Dificultad" value=i/>@palabra.Nombre<br/> 
                 @* <p>@i</p> *@ <!--Con esto verificas el id -->
             }
             <input type="radio" name="dificultad" value="-1" /> Todas las dificultades<br/>
-            </p>
+        </p>
         
         <p>
             Categoria:<br>
     
             @foreach(var palabra in ViewBag.Categoria){
                 i++;
-                <input type="radio" name="Categoria" value=i required/>@palabra.Nombre<br/> 
+                <input type="radio" name="Categoria" value=i />@palabra.Nombre<br/> 
                 @* <p>@i</p> *@ <!--Con esto verificas el id -->
             }
             <input type="radio" name="Categoria" value="-1" />Todas las categorias<br/> 
