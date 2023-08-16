@@ -6,6 +6,8 @@ public static class Juego{
     private static List<Respuesta> _respuestas{get;set;}
     private static bool _fin = false;
 
+    private static List<Pregunta> ListaPreguntasHechas = new List<Pregunta>(); //guarda las preguntas ya hechas para evitar que se repitan jaja. 
+
     public static bool Fin{
         get{return _fin;}
         set{_fin = value;}
@@ -32,18 +34,18 @@ public static class Juego{
         InicializarJuego();
     }
     public static Pregunta ObtenerProximaPregunta(){ //agregar una lista que guarde todas las preguntas ya hechas para evitar que se repitan y para que cuando todas hayan sido respondidas se pueda terminar el juego. fz lo hace.
-        List<Pregunta> ListaPreguntasHechas = new List<Pregunta>(); //guarda las preguntas ya hechas para evitar que se repitan jaja. 
+        
         Random random = new Random();
         Pregunta preguntaRandom;
+        int indiceAleatorio = 0;
         do{
-            int indiceAleatorio = random.Next(0, _preguntas.Count); //cambiar para que solo elija preguntas de la categoria elegida por el usuario. 
+            indiceAleatorio = random.Next(1, _preguntas.Count); //cambiar para que solo elija preguntas de la categoria elegida por el usuario. 
             preguntaRandom = _preguntas[indiceAleatorio];
-            Console.WriteLine("INDICE: " + indiceAleatorio);
+            Console.WriteLine("PREGUNTA RANDOM: " + preguntaRandom.Enunciado);
         }while(ListaPreguntasHechas.Contains(preguntaRandom));
         
         ListaPreguntasHechas.Add(preguntaRandom);
         
-
         return preguntaRandom;
     }
 
