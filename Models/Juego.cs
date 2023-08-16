@@ -36,7 +36,7 @@ public static class Juego{
         Random random = new Random();
         Pregunta preguntaRandom;
         do{
-            int indiceAleatorio = random.Next(0, _preguntas.Count);
+            int indiceAleatorio = random.Next(0, _preguntas.Count); //cambiar para que solo elija preguntas de la categoria elegida por el usuario. 
             preguntaRandom = _preguntas[indiceAleatorio];
 
         }while(ListaPreguntasHechas.Contains(preguntaRandom));

@@ -20,7 +20,7 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
         listaDificultades = db.Query<Dificultad>(sql).ToList();
         }
         return listaDificultades;
-    }//hoa
+    }
 
     public static List<Pregunta> ObtenerPreguntas(int idDificultad, int idCategoria){ //review del profe: son 4 queries distintas segun 4 casos distintos: si dificultad = -1 y categoria no, si dificultad y categoria son -1, si categoria -1 y dificultad no y si ninguna es -1. UTILIZAR WHERE. 
         List<Pregunta> listaPreguntas; 
@@ -55,11 +55,12 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
         List<Respuesta> listaRespuestas = new List<Respuesta>();
             
         foreach(Pregunta preg in preguntas){
-            // string SQL = "SELECT * FROM Respuestas1 WHERE IdPregunta = @pIdPregunta";
-            string SQL = "SELECT * FROM Respuestas";
+            string SQL = "SELECT * FROM Respuestas WHERE IdPregunta = @pIdPregunta";
+            // string SQL = "SELECT * FROM Respuestas";
             using(SqlConnection db = new SqlConnection(_connectionString)){
                 listaRespuestas.AddRange(db.Query<Respuesta>(SQL, new{pIdPregunta = preg.IdPregunta}));
             }
         }
         return listaRespuestas;
     }
+}
