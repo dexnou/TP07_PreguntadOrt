@@ -17,7 +17,9 @@ public class HomeController : Controller
     }
 
     public IActionResult Comenzar(string username, int dificultad, int categoria){
-        ViewBag.Username = username; //. 
+        Console.WriteLine("IDS: " + username + " " + dificultad + " " + categoria);
+        ViewBag.Username = username; 
+        Console.WriteLine("Username en viewBag en comenzar: " + ViewBag.Username); 
         Juego.CargarPartida(username, dificultad, categoria);
         if(username != "" || dificultad >0 && dificultad <=3 || categoria >0 && categoria<=3){
             return RedirectToAction("Jugar");
@@ -27,18 +29,20 @@ public class HomeController : Controller
     }
 
     public IActionResult Jugar(){
+        Console.WriteLine("Entro a jugar");
         ViewBag.Pregunta = Juego.ObtenerProximaPregunta(); 
         if(ViewBag.Pregunta != null){ //si ViewBag.Pregunta obtiene una pregunta, continua el juego
             ViewBag.RespuestasAPregunta = Juego.ObtenerProximasRespuestas(ViewBag.Pregunta.IdPregunta);
-            Console.WriteLine(ViewBag.RespuestasAPregunta[0].IdRespuesta);
             return View("Juego");
         }else{ //sino, si se queda sin preguntas, te redirige a fin del juego. 
             return View("Fin");
         }
     }
 
-    [HttpPost]public IActionResult VerificarRespuesta(int idPregunta, int idRespuesta){
+    public IActionResult VerificarRespuesta(int idPregunta, int idRespuesta){
+            Console.WriteLine("Entro a verificarRespuesta de Controller");
         ViewBag.Respuesta = Juego.VerificarRespuesta(idPregunta,idRespuesta);
+            Console.WriteLine("Salio de verificarRespuesta de Controller");
         ViewBag.PuntajeFinal = Juego._puntajeActual; //ver si esto funciona...
         return View("Respuesta");
     }

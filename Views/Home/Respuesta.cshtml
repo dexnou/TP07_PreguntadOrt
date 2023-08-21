@@ -1,11 +1,12 @@
 @if(ViewBag.Respuesta == true){
     <a href="img/"></a>
     <p>Respuesta correcta!</p>
+    <a href='@Url.Action("Jugar", "Home")'><button>Siguiente pregunta</button></a>
     
-    <button onclick=location.href='@Url.Action("Jugar", "Home")'>Siguiente pregunta</button>
 }else{
     <a href="img/"></a>
     <p>Respuesta incorrecta...</p>
     /*<p>Esta es la respuesata Correcta; @ViewBag.RespuestasAPregunta</p>*/
-    <button onclick=location.href='@Url.Action("Jugar", "Home")'>Volver a intentarlo</button>
+    
+    <a href='@Url.Action("Jugar", "Home")'><button>Siguiente pregunta</button></a>
 }   

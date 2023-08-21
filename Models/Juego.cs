@@ -8,16 +8,15 @@ public static class Juego{
 
     private static List<Pregunta> ListaPreguntasHechas = new List<Pregunta>(); //guarda las preguntas ya hechas para evitar que se repitan jaja. 
 
+    public static List<Respuesta> ListaPosiblesRespuestas = new List<Respuesta>();
     public static bool Fin{
         get{return _fin;}
         set{_fin = value;}
     }
     public static void InicializarJuego(){
-        _username = ""; //.
+        _username = "";
         _puntajeActual = 0;
         _cantidadPreguntasCorrectas = 0;
-        List<Pregunta> _preguntas= new List<Pregunta>();
-        List<Respuesta> _respuestas = new List<Respuesta>();
     }
 
     public static List<Categoria> ObtenerCategorias(){
@@ -31,17 +30,16 @@ public static class Juego{
     public static void CargarPartida(string username, int dificultad, int categoria){
         _preguntas = BD.ObtenerPreguntas(dificultad, categoria);
         _respuestas = BD.ObtenerRespuestas(_preguntas);
-        InicializarJuego();
+        _username = username;
     }
     public static Pregunta ObtenerProximaPregunta(){ //agregar una lista que guarde todas las preguntas ya hechas para evitar que se repitan y para que cuando todas hayan sido respondidas se pueda terminar el juego. fz lo hace.
         
         Random random = new Random();
         Pregunta preguntaRandom;
-        int indiceAleatorio = 0;
+        int indiceAleatorio;
         do{
-            indiceAleatorio = random.Next(1, _preguntas.Count); //cambiar para que solo elija preguntas de la categoria elegida por el usuario. 
+            indiceAleatorio = random.Next(0, _preguntas.Count); //cambiar para que solo elija preguntas de la categoria elegida por el usuario. 
             preguntaRandom = _preguntas[indiceAleatorio];
-            Console.WriteLine("PREGUNTA RANDOM: " + preguntaRandom.Enunciado);
         }while(ListaPreguntasHechas.Contains(preguntaRandom));
         
         ListaPreguntasHechas.Add(preguntaRandom);
@@ -50,7 +48,7 @@ public static class Juego{
     }
 
     public static List<Respuesta> ObtenerProximasRespuestas(int idPregunta){ //cada pregunta tiene 3 opciones de respuesta. solo 1 opcion es correcta. tiene que mostrar esas 3 opciones. 
-        List<Respuesta> ListaPosiblesRespuestas = new List<Respuesta>();
+        
         Console.WriteLine(_respuestas[0].IdRespuesta);
         for(int i=0; i<_respuestas.Count; i++){ //se podria tambien hacer un foreach pero es lo mismo. aunque el foreach es mas limpio. 
             System.Console.WriteLine(idPregunta);
@@ -66,29 +64,31 @@ public static class Juego{
         //     j++;
         // }
         
-            // if(ListaPosiblesRespuestas != null){
-            //     return ListaPosiblesRespuestas;
-            // }else{
-            //     List<Respuesta> ListaError = new List<Respuesta>();
-                
-            //     return ListaError;
-            // }
-        
         return ListaPosiblesRespuestas;
     }
 
-    public static bool VerificarRespuesta(int idPregunta, int idRespuesta){ //ver si funciona. 
+    public static bool VerificarRespuesta(int idPregunta, int idRespuesta){ 
         bool validacion = false; 
+        Console.WriteLine("Entro a verificarRespuesta de Juego");
+        Console.WriteLine("IdRespuesta: " + idRespuesta);
+        Console.WriteLine("IdPregunta: " + idPregunta);
+        // Console.WriteLine("Contenido: " + _respuestas[idRespuesta].Contenido); No se porque no anda esto y tira error. 
+        Respuesta respuestaCorrecta = new Respuesta();
+        
 
-        foreach(Respuesta respuesta in _respuestas){
-            if(respuesta.IdPregunta == idPregunta){
-                if(respuesta.Correcta == true){
-                    validacion = true; 
-                    _puntajeActual++;
-                    _cantidadPreguntasCorrectas++;
-                }
+        foreach(Respuesta r in _respuestas){
+            if(r.Correcta == true){
+                respuestaCorrecta = r;
             }
         }
-        return validacion; 
+        Console.WriteLine("Contenido de respuesta correcta: " + respuestaCorrecta.Contenido);
+        if(idPregunta == respuestaCorrecta.IdPregunta){
+            Console.WriteLine("Mismo idPregunta");
+            if(idRespuesta == respuestaCorrecta.IdRespuesta){
+                Console.WriteLine("Mismo idRespuesta");
+                validacion = true;
+            }
+        }
+        return validacion;  
     }
 }
