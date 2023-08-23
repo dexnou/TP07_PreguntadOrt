@@ -2,12 +2,12 @@ using System.Data.SqlClient;
 using Dapper; 
 
 public class BD{
-private static string _connectionString = @"Server=localhost;DataBase=programacionpreguntados;Trusted_Connection=True;";
+private static string _connectionString = @"Server=localhost;DataBase=PreguntadOrt;Trusted_Connection=True;";
  
     public static List<Categoria> ObtenerCategorias(){
         List<Categoria> listaCategorias;
         using(SqlConnection db = new SqlConnection(_connectionString)){
-        string sql = "SELECT * FROM Categorias1";
+        string sql = "SELECT * FROM Categorias";
         listaCategorias = db.Query<Categoria>(sql).ToList();
         }
         return listaCategorias;
@@ -16,7 +16,7 @@ private static string _connectionString = @"Server=localhost;DataBase=programaci
     public static List<Dificultad> ObtenerDificultades(){
         List<Dificultad> listaDificultades;
         using(SqlConnection db = new SqlConnection(_connectionString)){
-        string sql = "SELECT * FROM Dificultades1"; //ver si los nombres de las tablas de la base de datos se llaman igual para verificar. 
+        string sql = "SELECT * FROM Dificultades"; //ver si los nombres de las tablas de la base de datos se llaman igual para verificar. 
         listaDificultades = db.Query<Dificultad>(sql).ToList();
         }
         return listaDificultades;
@@ -27,20 +27,20 @@ private static string _connectionString = @"Server=localhost;DataBase=programaci
         using(SqlConnection db = new SqlConnection(_connectionString)){ //el problema era que ambos ids que llegaban por parametros eran iguales a 0
             
             if(idDificultad == -1 && idCategoria == -1){
-                string sql = "SELECT * FROM Preguntas1"; 
+                string sql = "SELECT * FROM Preguntas"; 
                 listaPreguntas = db.Query<Pregunta>(sql).ToList();
             }
             else if(idDificultad == -1 && idCategoria != -1){
-                string sql = "SELECT * FROM Preguntas1 WHERE IdCategoria = @IdCategoria"; 
+                string sql = "SELECT * FROM Preguntas WHERE IdCategoria = @IdCategoria"; 
                 listaPreguntas = db.Query<Pregunta>(sql, new{IdCategoria = idCategoria}).ToList();
             }
             else if(idCategoria == -1 && idDificultad != -1){
-                string sql = "SELECT * FROM Preguntas1 WHERE IdDificultad = @IdDificultad"; 
+                string sql = "SELECT * FROM Preguntas WHERE IdDificultad = @IdDificultad"; 
                 listaPreguntas = db.Query<Pregunta>(sql, new{IdDificultad = idDificultad}).ToList();
             }
             
             else{
-                string sql =  "SELECT * FROM Preguntas1 WHERE IdDificultad = @IdDificultad AND IdCategoria = @IdCategoria"; 
+                string sql =  "SELECT * FROM Preguntas WHERE IdDificultad = @IdDificultad AND IdCategoria = @IdCategoria"; 
                 listaPreguntas = db.Query<Pregunta>(sql, new{IdDificultad = idDificultad, IdCategoria = idCategoria}).ToList();     
             }
             // foreach(var pal in listaPreguntas){
@@ -54,7 +54,7 @@ private static string _connectionString = @"Server=localhost;DataBase=programaci
         List<Respuesta> listaRespuestas = new List<Respuesta>();
             
         foreach(Pregunta preg in preguntas){
-            string SQL = "SELECT * FROM Respuestas1 WHERE IdPregunta = @pIdPregunta";
+            string SQL = "SELECT * FROM Respuestas WHERE IdPregunta = @pIdPregunta";
             using(SqlConnection db = new SqlConnection(_connectionString)){
                 listaRespuestas.AddRange(db.Query<Respuesta>(SQL, new{pIdPregunta = preg.IdPregunta}));
             }

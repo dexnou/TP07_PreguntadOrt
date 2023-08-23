@@ -8,7 +8,7 @@ public static class Juego{
 
     private static List<Pregunta> ListaPreguntasHechas = new List<Pregunta>(); //guarda las preguntas ya hechas para evitar que se repitan jaja. 
 
-    public static List<Respuesta> ListaPosiblesRespuestas = new List<Respuesta>();
+   
     public static bool Fin{
         get{return _fin;}
         set{_fin = value;}
@@ -49,7 +49,7 @@ public static class Juego{
     }
 
     public static List<Respuesta> ObtenerProximasRespuestas(int idPregunta){ //cada pregunta tiene 3 opciones de respuesta. solo 1 opcion es correcta. tiene que mostrar esas 3 opciones. 
-        
+        List<Respuesta> ListaPosiblesRespuestas = new List<Respuesta>();
         Console.WriteLine(_respuestas[0].IdRespuesta);
         for(int i=0; i<_respuestas.Count; i++){ //se podria tambien hacer un foreach pero es lo mismo. aunque el foreach es mas limpio. 
             System.Console.WriteLine(idPregunta);
