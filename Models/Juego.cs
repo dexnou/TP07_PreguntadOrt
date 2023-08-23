@@ -38,10 +38,11 @@ public static class Juego{
         Pregunta preguntaRandom;
         int indiceAleatorio;
         do{
+            Console.WriteLine("Entro al do while de ObtenerProximaPregunta");
             indiceAleatorio = random.Next(0, _preguntas.Count); //cambiar para que solo elija preguntas de la categoria elegida por el usuario. 
             preguntaRandom = _preguntas[indiceAleatorio];
         }while(ListaPreguntasHechas.Contains(preguntaRandom));
-        
+        Console.WriteLine("Salio del do while");
         ListaPreguntasHechas.Add(preguntaRandom);
         
         return preguntaRandom;
@@ -77,7 +78,7 @@ public static class Juego{
         
 
         foreach(Respuesta r in _respuestas){
-            if(r.Correcta == true){
+            if(r.Correcta == true && r.IdPregunta == idPregunta){
                 respuestaCorrecta = r;
             }
         }
@@ -89,9 +90,16 @@ public static class Juego{
                 validacion = true;
             }
         }
+        int i = 0; 
 
-        _preguntas.RemoveAt(idPregunta); //elimina la pregunta para que no se vuelva a hacer. 
-
+        while(i < _preguntas.Count){
+            if(_preguntas[i].IdPregunta == idPregunta){
+                _preguntas.Remove(_preguntas[i]);
+                _respuestas.Remove(_respuestas[i]);
+                Console.WriteLine("Borro la pregunta");
+            }
+            i++;
+        }
         return validacion;  
     }
 }
