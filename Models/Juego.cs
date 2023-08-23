@@ -5,7 +5,7 @@ public static class Juego{
     private static List<Pregunta> _preguntas{get;set;}
     private static List<Respuesta> _respuestas{get;set;}
     private static bool _fin = false;
-
+    private static int contador = 0;
     private static List<Pregunta> ListaPreguntasHechas = new List<Pregunta>(); //guarda las preguntas ya hechas para evitar que se repitan jaja. 
 
    
@@ -37,14 +37,25 @@ public static class Juego{
         Random random = new Random();
         Pregunta preguntaRandom;
         int indiceAleatorio;
+        
         do{
             Console.WriteLine("Entro al do while de ObtenerProximaPregunta");
             indiceAleatorio = random.Next(0, _preguntas.Count); //cambiar para que solo elija preguntas de la categoria elegida por el usuario. 
             preguntaRandom = _preguntas[indiceAleatorio];
-        }while(ListaPreguntasHechas.Contains(preguntaRandom));
+            Console.WriteLine("Lista preguntas hechas: " + ListaPreguntasHechas.Count);
+        }while(ListaPreguntasHechas.Contains(preguntaRandom) && ListaPreguntasHechas.Count < 2);
+
+        // while(ListaPreguntasHechas.Contains(preguntaRandom) ){
+        //     indiceAleatorio = random.Next(0, _preguntas.Count); //cambiar para que solo elija preguntas de la categoria elegida por el usuario. 
+        //     preguntaRandom = _preguntas[indiceAleatorio];
+            
+        // }
         Console.WriteLine("Salio del do while");
         ListaPreguntasHechas.Add(preguntaRandom);
-        
+        contador++;
+        if(ListaPreguntasHechas.Count > 2){
+            preguntaRandom = null; 
+        }
         return preguntaRandom;
     }
 
@@ -95,7 +106,6 @@ public static class Juego{
         while(i < _preguntas.Count){
             if(_preguntas[i].IdPregunta == idPregunta){
                 _preguntas.Remove(_preguntas[i]);
-                _respuestas.Remove(_respuestas[i]);
                 Console.WriteLine("Borro la pregunta");
             }
             i++;

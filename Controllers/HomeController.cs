@@ -35,6 +35,7 @@ public class HomeController : Controller
             ViewBag.RespuestasAPregunta = Juego.ObtenerProximasRespuestas(ViewBag.Pregunta.IdPregunta);
             return View("Juego");
         }else{ //sino, si se queda sin preguntas, te redirige a fin del juego. 
+            Console.WriteLine("AL FIN");
             return View("Fin");
         }
     }
