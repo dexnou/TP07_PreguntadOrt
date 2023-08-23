@@ -1,12 +1,11 @@
- <p>@ViewBag.Username</p> <!--Falta poner puntaje actual, nro de pregunta actual-->
+ <p>Nombre de usuario: @ViewBag.Username</p> <!--Falta poner puntaje actual, nro de pregunta actual-->
 
     <p>@ViewBag.Pregunta.Enunciado</p>
     @* <p>@ViewBag.RespuestasAPregunta</p> *@
 
-    <form action='@Url.Action("VerificarRespuesta")' method="post">
         @foreach(Respuesta resp in ViewBag.RespuestasAPregunta)
         {
-            <input type="radio" name="resp" value=k />@resp.Contenido<br/> 
+            <br>
+            <a href='@Url.Action("VerificarRespuesta", "Home", new { idPregunta=resp.IdPregunta, idRespuesta=resp.IdRespuesta })'><button>@resp.Contenido</button></a>
         }
-        <button type="submit">Verificar Respuesta</button>
-    </form>
+    

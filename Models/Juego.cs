@@ -81,7 +81,7 @@ public static class Juego{
                 respuestaCorrecta = r;
             }
         }
-        Console.WriteLine("Contenido de respuesta correcta: " + respuestaCorrecta.Contenido);
+        Console.WriteLine("Respuesta correcta: " + respuestaCorrecta.Contenido + ". IdPregunta: " + respuestaCorrecta.IdPregunta);
         if(idPregunta == respuestaCorrecta.IdPregunta){
             Console.WriteLine("Mismo idPregunta");
             if(idRespuesta == respuestaCorrecta.IdRespuesta){
@@ -89,6 +89,9 @@ public static class Juego{
                 validacion = true;
             }
         }
+
+        _preguntas.RemoveAt(idPregunta); //elimina la pregunta para que no se vuelva a hacer. 
+
         return validacion;  
     }
 }

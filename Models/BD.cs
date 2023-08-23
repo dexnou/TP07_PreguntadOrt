@@ -2,7 +2,7 @@ using System.Data.SqlClient;
 using Dapper; 
 
 public class BD{
-private static string _connectionString = @"Server=localhost;DataBase=PreguntadOrt;Trusted_Connection=True;";
+private static string _connectionString = @"Server=localhost;DataBase=programacionpreguntados;Trusted_Connection=True;";
  
     public static List<Categoria> ObtenerCategorias(){
         List<Categoria> listaCategorias;
@@ -38,7 +38,7 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
                 string sql = "SELECT * FROM Preguntas1 WHERE IdDificultad = @IdDificultad"; 
                 listaPreguntas = db.Query<Pregunta>(sql, new{IdDificultad = idDificultad}).ToList();
             }
-            // else if(idCategoria != -1 && idDificultad != -1){
+            
             else{
                 string sql =  "SELECT * FROM Preguntas1 WHERE IdDificultad = @IdDificultad AND IdCategoria = @IdCategoria"; 
                 listaPreguntas = db.Query<Pregunta>(sql, new{IdDificultad = idDificultad, IdCategoria = idCategoria}).ToList();     
@@ -55,7 +55,6 @@ private static string _connectionString = @"Server=localhost;DataBase=PreguntadO
             
         foreach(Pregunta preg in preguntas){
             string SQL = "SELECT * FROM Respuestas1 WHERE IdPregunta = @pIdPregunta";
-            // string SQL = "SELECT * FROM Respuestas";
             using(SqlConnection db = new SqlConnection(_connectionString)){
                 listaRespuestas.AddRange(db.Query<Respuesta>(SQL, new{pIdPregunta = preg.IdPregunta}));
             }
