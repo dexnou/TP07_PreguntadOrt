@@ -1,12 +1,16 @@
+<p>Puntaje: @ViewBag.PuntajeFinal</p>
+
 @if(ViewBag.Respuesta == true){
     <a href="img/"></a>
     <p>Respuesta correcta!</p>
-    <a href='@Url.Action("Jugar", "Home")'><button>Siguiente pregunta</button></a>
+    
     
 }else{
     <a href="img/"></a>
     <p>Respuesta incorrecta...</p>
     /*<p>Esta es la respuesata Correcta; @ViewBag.RespuestasAPregunta</p>*/
     
-    <a href='@Url.Action("Jugar", "Home")'><button>Siguiente pregunta</button></a>
+    
 }   
+
+<a href='@Url.Action("Jugar", "Home")'><button>Siguiente pregunta</button></a>

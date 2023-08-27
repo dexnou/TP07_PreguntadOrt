@@ -5,8 +5,6 @@ public static class Juego{
     private static List<Pregunta> _preguntas{get;set;}
     private static List<Respuesta> _respuestas{get;set;}
     private static bool _fin = false;
-    private static int contador = 0;
-    private static List<Pregunta> ListaPreguntasHechas = new List<Pregunta>(); //guarda las preguntas ya hechas para evitar que se repitan jaja. 
 
    
     public static bool Fin{
@@ -32,30 +30,22 @@ public static class Juego{
         _respuestas = BD.ObtenerRespuestas(_preguntas);
         _username = username;
     }
-    public static Pregunta ObtenerProximaPregunta(){ //agregar una lista que guarde todas las preguntas ya hechas para evitar que se repitan y para que cuando todas hayan sido respondidas se pueda terminar el juego. fz lo hace.
-        
+    public static Pregunta ObtenerProximaPregunta(){ 
         Random random = new Random();
-        Pregunta preguntaRandom;
+        Pregunta preguntaRandom = null;
         int indiceAleatorio;
-        
-        do{
-            Console.WriteLine("Entro al do while de ObtenerProximaPregunta");
-            indiceAleatorio = random.Next(0, _preguntas.Count); //cambiar para que solo elija preguntas de la categoria elegida por el usuario. 
-            preguntaRandom = _preguntas[indiceAleatorio];
-            Console.WriteLine("Lista preguntas hechas: " + ListaPreguntasHechas.Count);
-        }while(ListaPreguntasHechas.Contains(preguntaRandom) && ListaPreguntasHechas.Count < 2);
 
-        // while(ListaPreguntasHechas.Contains(preguntaRandom) ){
-        //     indiceAleatorio = random.Next(0, _preguntas.Count); //cambiar para que solo elija preguntas de la categoria elegida por el usuario. 
-        //     preguntaRandom = _preguntas[indiceAleatorio];
-            
-        // }
-        Console.WriteLine("Salio del do while");
-        ListaPreguntasHechas.Add(preguntaRandom);
-        contador++;
-        if(ListaPreguntasHechas.Count > 2){
-            preguntaRandom = null; 
-        }
+            indiceAleatorio = random.Next(0, _preguntas.Count); 
+            Console.WriteLine("Indice aleatorio: " + indiceAleatorio);
+
+            if (indiceAleatorio >= 0 && indiceAleatorio < _preguntas.Count) {
+                preguntaRandom = _preguntas[indiceAleatorio];
+                Console.WriteLine("pregunta random: " + preguntaRandom.Enunciado);
+            } else {
+                Console.WriteLine("Índice fuera de rango");
+                preguntaRandom = null;
+            }
+
         return preguntaRandom;
     }
 
@@ -63,7 +53,7 @@ public static class Juego{
         List<Respuesta> ListaPosiblesRespuestas = new List<Respuesta>();
         Console.WriteLine(_respuestas[0].IdRespuesta);
         for(int i=0; i<_respuestas.Count; i++){ //se podria tambien hacer un foreach pero es lo mismo. aunque el foreach es mas limpio. 
-            System.Console.WriteLine(idPregunta);
+            Console.WriteLine(idPregunta);
             if(_respuestas[i].IdPregunta == idPregunta){
                 ListaPosiblesRespuestas.Add(_respuestas[i]);
             }
@@ -84,7 +74,7 @@ public static class Juego{
         Console.WriteLine("Entro a verificarRespuesta de Juego");
         Console.WriteLine("IdRespuesta: " + idRespuesta);
         Console.WriteLine("IdPregunta: " + idPregunta);
-        // Console.WriteLine("Contenido: " + _respuestas[idRespuesta].Contenido); No se porque no anda esto y tira error. 
+     
         Respuesta respuestaCorrecta = new Respuesta();
         
 
@@ -99,17 +89,20 @@ public static class Juego{
             if(idRespuesta == respuestaCorrecta.IdRespuesta){
                 Console.WriteLine("Mismo idRespuesta");
                 validacion = true;
+                _puntajeActual++;
             }
         }
         int i = 0; 
 
-        while(i < _preguntas.Count){
+        while(i < _preguntas.Count){ 
             if(_preguntas[i].IdPregunta == idPregunta){
                 _preguntas.Remove(_preguntas[i]);
-                Console.WriteLine("Borro la pregunta");
+                Console.WriteLine("BORRO LA PREGUNTA");
+                
             }
             i++;
         }
+        
         return validacion;  
     }
 }

@@ -41,9 +41,7 @@ public class HomeController : Controller
     }
 
     public IActionResult VerificarRespuesta(int idPregunta, int idRespuesta){
-            Console.WriteLine("Entro a verificarRespuesta de Controller");
         ViewBag.Respuesta = Juego.VerificarRespuesta(idPregunta,idRespuesta);
-            Console.WriteLine("Salio de verificarRespuesta de Controller");
         ViewBag.PuntajeFinal = Juego._puntajeActual; //ver si esto funciona...
         return View("Respuesta");
     }
