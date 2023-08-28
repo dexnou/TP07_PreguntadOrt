@@ -2,10 +2,11 @@
 
  }@*Se puede elegir 2 categorias. Arreglar despues. *@
 
+
     <form action='@Url.Action("Comenzar", "Home")' method="get">
     
         
-        Nombre Usuario: 
+        @* Nombre Usuario: 
         <input type="text" id="texto" name="username" placeholder="Ingrese su nombre" required/><br/>
         <p>
             Dificultad:<br>
@@ -26,6 +27,32 @@
             }
             <input type="radio" name="Categoria" value="-1" />Todas las categorias<br/> 
         </p>
+        <button type="submit">Jugar</button> *@
 
-        <button type="submit">Jugar</button>
+        <div class="nombreUsuarioIngreso">
+        <p>Nombre de Usuario:</p>
+        <input type="text" id="texto" name="username" placeholder="Ingrese su nombre" required> <br>
+      </div>
+      <div class="formularios">
+        <div class="formulario1">
+          <p>
+            Dificultad: <br>
+            @foreach(Dificultad palabra in ViewBag.Dificultad){
+                <input type="radio" name="dificultad" value="@palabra.IdDificultad"/>@palabra.Nombre<br/> 
+            }
+            <input type="radio" name="dificultad" value="-1" /> Todas las dificultades<br/>
+          </p>
+        </div>
+        <div class="formulario2">
+          <p>
+            Categoría:<br>
+            @foreach(Categoria palabra in ViewBag.Categoria){
+                <input type="radio" name="Categoria" value="@palabra.IdCategoria" />@palabra.Nombre<br/>  
+            }
+            <input type="radio" name="Categoria" value="-1" />Todas las categorias<br/> 
+          </p>
+        </div>
+      </div>
+      <button type="submit" class="botonEmpezar2">Jugar</button>
+
     </form>

@@ -20,3 +20,87 @@ footer {
   margin: 10px 0px 20px 0px;
 }
 
+/* CSS DEL TP */
+
+
+.logo{
+  display:flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
+  margin-bottom: 150px;
+  width: 350px;
+  height: auto;
+}
+
+.botonempezar{
+justify-content: center;
+}
+
+.list-group{
+margin: 0; 
+width: 20%; 
+}
+
+.nombreUsuarioIngreso{
+  font-size: 25px;
+  text-align: center;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 600;
+  margin-top: 3%;
+}
+p{
+  font-size: 19px;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 300;
+}
+
+.formularios{
+  display: flex;
+  font-size: 20px;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  margin-left: 37%;
+  margin-right: 35%;
+  margin-top: 3%;
+  border-radius: 3.5rem;
+  width: 500px;
+  height: auto;
+}
+
+.formulario1{
+  margin-right: 5%;
+}
+
+.botonEmpezar2{
+  display:block;
+  font-size: 20px;
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 140px;
+  height: auto;
+  border-radius: 3rem;
+}
+
+.tituloCreditos{
+  text-align: center;
+  font-size: 50px;
+  margin-top: 2%;
+}
+
+.textoCreditos{
+  text-align: center;
+  font-size: 23px;
+  margin-top: 4%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+body{
+  background-image: url("../img/FONDO.PNG");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}

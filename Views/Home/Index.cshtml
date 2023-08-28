@@ -1,13 +1,24 @@
 ﻿@{
     ViewData["Title"] = "Index";
 }
+<style>
+      body{
+          background-image: url("img/FONDO.PNG");
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-attachment: fixed;
+      }
+  </style>
+  
+    <link rel="shortcut icon" href="img/log1.png">
 
-<h1>TP 07 - PreguntadORT</h1>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
+<img src="img/log1.png" alt="Logo PreguntadOrt" class="logo">
 
-<button onclick=location.href='@Url.Action("ConfigurarJuego", "Home")'>Comenzar a Jugar</button></div>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-outline-danger" onclick=location.href='@Url.Action("ConfigurarJuego", "Home")' type="button">Empezar</button>
+</div>
 
-
-
-
-
+@* <button onclick=location.href='@Url.Action("ConfigurarJuego", "Home")'>Comenzar a Jugar</button></div> *@
